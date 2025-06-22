@@ -5,5 +5,6 @@ pkgs.mkShell {
     nodejs
     nodePackages.pnpm
     nodePackages.yarn
+    prettier
   ];
 }
