@@ -1,4 +1,4 @@
-{ pkgs }:
+{ lib, pkgs }:
 
 pkgs.mkShell {
   packages = with pkgs; [
@@ -9,4 +9,8 @@ pkgs.mkShell {
     nodePackages.yarn
     prettier
   ];
+
+  shellHook = ''
+    echo "nodejs $(${lib.getExe pkgs.nodejs} --version)"
+  '';
 }

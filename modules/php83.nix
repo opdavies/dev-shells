@@ -1,4 +1,8 @@
-{ commonPhpPackages, pkgs }:
+{
+  commonPhpPackages,
+  lib,
+  pkgs,
+}:
 
 pkgs.mkShell {
   packages =
@@ -8,4 +12,8 @@ pkgs.mkShell {
       php83Packages.composer
     ]
     ++ commonPhpPackages;
+
+  shellHook = ''
+    ${lib.getExe pkgs.php83} --version
+  '';
 }
