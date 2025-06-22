@@ -5,16 +5,15 @@
   ...
 }:
 
-pkgs.mkShell {
-  packages =
-    with pkgs;
-    [
-      php82
-      php82Packages.composer
-    ]
-    ++ commonPhpPackages;
+with pkgs;
+
+mkShell {
+  packages = [
+    php82
+    php82Packages.composer
+  ] ++ commonPhpPackages;
 
   shellHook = ''
-    ${lib.getExe pkgs.php82} --version
+    ${lib.getExe php82} --version
   '';
 }

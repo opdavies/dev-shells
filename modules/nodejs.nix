@@ -1,7 +1,9 @@
 { lib, pkgs }:
 
-pkgs.mkShell {
-  packages = with pkgs; [
+with pkgs;
+
+mkShell {
+  packages = [
     bun
     eslint_d
     nodejs
@@ -11,6 +13,6 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-    echo "nodejs $(${lib.getExe pkgs.nodejs} --version)"
+    echo "nodejs $(${lib.getExe nodejs} --version)"
   '';
 }

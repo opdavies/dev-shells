@@ -1,13 +1,15 @@
 { lib, pkgs }:
 
-pkgs.mkShell {
-  packages = with pkgs; [
+with pkgs;
+
+mkShell {
+  packages = [
     tailwindcss-language-server
     tailwindcss_4
     watchman
   ];
 
   shellHook = ''
-    ${lib.getExe pkgs.tailwindcss_4} --help
+    ${lib.getExe tailwindcss_4} --help
   '';
 }

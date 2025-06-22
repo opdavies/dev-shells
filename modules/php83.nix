@@ -4,16 +4,15 @@
   pkgs,
 }:
 
-pkgs.mkShell {
-  packages =
-    with pkgs;
-    [
-      php83
-      php83Packages.composer
-    ]
-    ++ commonPhpPackages;
+with pkgs;
+
+mkShell {
+  packages = [
+    php83
+    php83Packages.composer
+  ] ++ commonPhpPackages;
 
   shellHook = ''
-    ${lib.getExe pkgs.php83} --version
+    ${lib.getExe php83} --version
   '';
 }
