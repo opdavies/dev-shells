@@ -24,6 +24,8 @@
         php82 = callPackage ./modules/php82.nix { inherit commonPhpPackages; };
 
         php83 = callPackage ./modules/php83.nix { inherit commonPhpPackages; };
+
+        tailwindcss = callPackage ./modules/tailwindcss.nix { };
       };
 
       formatter.${system} = pkgs.nixfmt-rfc-style;
