@@ -1,18 +1,17 @@
 {
-  commonPhpPackages,
-  lib,
-  pkgs,
-}:
+  perSystem =
+    { pkgs, ... }:
+    {
+      devShells.php83 = pkgs.mkShell {
+        packages = with pkgs; [
+          php83
+          php83Packages.composer
+          phpactor
+        ];
 
-with pkgs;
-
-mkShell {
-  packages = [
-    php83
-    php83Packages.composer
-  ] ++ commonPhpPackages;
-
-  shellHook = ''
-    ${lib.getExe php83} --version
-  '';
+        shellHook = ''
+          php --version
+        '';
+      };
+    };
 }

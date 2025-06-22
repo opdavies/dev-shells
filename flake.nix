@@ -11,28 +11,18 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
+      imports = [
+        ./modules/nodejs.nix
+        ./modules/php82.nix
+        ./modules/php83.nix
+        ./modules/tailwindcss.nix
+      ];
+
       perSystem =
         { config, pkgs, ... }:
-        let
-          inherit (pkgs) callPackage;
-
-          commonPhpPackages = with pkgs; [
-            phpactor
-          ];
-        in
         {
-          devShells = {
-            default = pkgs.mkShell {
-              packages = with pkgs; [ nixd ];
-            };
-
-            nodejs = callPackage ./modules/nodejs.nix { };
-
-            php82 = callPackage ./modules/php82.nix { inherit commonPhpPackages; };
-
-            php83 = callPackage ./modules/php83.nix { inherit commonPhpPackages; };
-
-            tailwindcss = callPackage ./modules/tailwindcss.nix { };
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [ nixd ];
           };
 
           formatter = pkgs.nixfmt-rfc-style;

@@ -1,19 +1,17 @@
 {
-  commonPhpPackages,
-  lib,
-  pkgs,
-  ...
-}:
+  perSystem =
+    { pkgs, ... }:
+    {
+      devShells.php82 = pkgs.mkShell {
+        packages = with pkgs; [
+          php82
+          php82Packages.composer
+          phpactor
+        ];
 
-with pkgs;
-
-mkShell {
-  packages = [
-    php82
-    php82Packages.composer
-  ] ++ commonPhpPackages;
-
-  shellHook = ''
-    ${lib.getExe php82} --version
-  '';
+        shellHook = ''
+          php --version
+        '';
+      };
+    };
 }
