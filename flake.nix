@@ -1,33 +1,41 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs = {
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
 
   outputs =
-    { nixpkgs, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-      inherit (pkgs) callPackage;
+      perSystem =
+        { config, pkgs, ... }:
+        let
+          inherit (pkgs) callPackage;
 
-      commonPhpPackages = with pkgs; [
-        phpactor
-      ];
-    in
-    {
-      devShells.${system} = {
-        default = pkgs.mkShell {
-          packages = with pkgs; [ nixd ];
+          commonPhpPackages = with pkgs; [
+            phpactor
+          ];
+        in
+        {
+          devShells = {
+            default = pkgs.mkShell {
+              packages = with pkgs; [ nixd ];
+            };
+
+            nodejs = callPackage ./modules/nodejs.nix { };
+
+            php82 = callPackage ./modules/php82.nix { inherit commonPhpPackages; };
+
+            php83 = callPackage ./modules/php83.nix { inherit commonPhpPackages; };
+
+            tailwindcss = callPackage ./modules/tailwindcss.nix { };
+          };
+
+          formatter = pkgs.nixfmt-rfc-style;
         };
-
-        nodejs = callPackage ./modules/nodejs.nix { };
-
-        php82 = callPackage ./modules/php82.nix { inherit commonPhpPackages; };
-
-        php83 = callPackage ./modules/php83.nix { inherit commonPhpPackages; };
-
-        tailwindcss = callPackage ./modules/tailwindcss.nix { };
-      };
-
-      formatter.${system} = pkgs.nixfmt-rfc-style;
     };
 }
