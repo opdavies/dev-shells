@@ -1,3 +1,5 @@
+{ commonPhpPackages, ... }:
+
 {
   perSystem =
     { pkgs, ... }:
@@ -6,8 +8,7 @@
         packages = with pkgs; [
           php81
           php81Packages.composer
-          phpactor
-        ];
+        ] ++ commonPhpPackages pkgs;
 
         shellHook = ''
           php --version

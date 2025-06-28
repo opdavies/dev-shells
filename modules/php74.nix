@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ commonPhpPackages, inputs, ... }:
 
 {
   perSystem =
@@ -11,11 +11,10 @@
     in
     {
       devShells.php74 = pkgs.mkShell {
-        packages = with pkgs; [
+        packages = [
           php
           phpPackages.composer
-          phpactor
-        ];
+        ] ++ commonPhpPackages pkgs;
 
         shellHook = ''
           php --version
