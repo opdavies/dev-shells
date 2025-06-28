@@ -13,6 +13,7 @@
 
       imports = [
         ./modules/nodejs.nix
+        ./modules/php81.nix
         ./modules/php82.nix
         ./modules/php83.nix
         ./modules/tailwindcss.nix
