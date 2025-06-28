@@ -4,6 +4,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-php74.url = "github:nixos/nixpkgs/81b77fd3847a";
   };
 
   outputs =
@@ -13,6 +15,7 @@
 
       imports = [
         ./modules/nodejs.nix
+        ./modules/php74.nix
         ./modules/php81.nix
         ./modules/php82.nix
         ./modules/php83.nix

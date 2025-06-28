@@ -36,10 +36,27 @@
         "type": "github"
       }
     },
+    "nixpkgs-php74": {
+      "locked": {
+        "lastModified": 1651667340,
+        "narHash": "sha256-OUOe8zZ53ZlmATiNdhYkEIwbXAs9ZYrPhsRJwCS6VQI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "81b77fd3847a2eb23618b7cbaa23049ba6139fa2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "81b77fd3847a",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-php74": "nixpkgs-php74"
       }
     }
   },
