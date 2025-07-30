@@ -1,5 +1,8 @@
 {
   inputs = {
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell.url = "github:numtide/devshell";
+
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -19,12 +22,16 @@
         commonPhpPackages = pkgs: with pkgs; [ phpactor ];
       };
 
-      imports = [ (inputs.import-tree ./modules) ];
+      imports = [
+        inputs.devshell.flakeModule
+
+        (inputs.import-tree ./modules)
+      ];
 
       perSystem =
         { pkgs, ... }:
         {
-          devShells.default = pkgs.mkShell {
+          devshells.default = {
             packages = with pkgs; [ nixd ];
           };
         };
