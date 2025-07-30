@@ -11,7 +11,7 @@
         ] ++ commonPhpPackages pkgs;
 
         shellHook = ''
-          php --version
+          composer -V
         '';
       };
     };
